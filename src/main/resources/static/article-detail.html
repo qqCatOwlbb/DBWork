@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>文章详情</title>
+  <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">DBWork</div>
+    <nav class="nav">
+      <a href="/index.html">首页</a>
+      <a href="#" id="link-publish">发布文章</a>
+      <a href="#" id="link-profile">个人中心</a>
+      <a href="#" id="link-logout">退出登录</a>
+    </nav>
+  </header>
+  <main class="main">
+    <article class="article">
+      <h1 id="title" class="article-title"></h1>
+      <div id="meta" class="article-meta"></div>
+      <div id="content" class="article-content"></div>
+    </article>
+    <button id="like-btn" class="like-fab">
+      <span id="like-icon">♥</span>
+      <span id="like-count">0</span>
+    </button>
+    <section class="comments">
+      <h2 class="comments-title">评论</h2>
+      <div id="comment-list" class="comment-list"></div>
+      <div class="comment-editor">
+        <textarea id="comment-input" placeholder="发表你的看法"></textarea>
+        <button id="comment-submit" class="btn primary">发表评论</button>
+        <div id="comment-error" class="error" aria-live="polite"></div>
+      </div>
+    </section>
+    <div id="error" class="error" aria-live="polite"></div>
+  </main>
+  <script src="/js/article-detail.js"></script>
+</body>
+</html>
