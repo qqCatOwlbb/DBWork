@@ -25,6 +25,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,B
 .tab.active{background:var(--primary);border-color:var(--primary);color:#fff}
 .list{display:flex;flex-direction:column;gap:12px}
 .item{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+.article-card{cursor:pointer}
 .item-title{font-size:18px;margin:0 0 6px}
 .item-meta{font-size:13px;color:var(--muted);margin-bottom:6px}
 .item-content{font-size:14px;color:#333}

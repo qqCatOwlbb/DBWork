@@ -36,10 +36,21 @@ document.addEventListener("DOMContentLoaded",function(){
     if(!items||items.length===0){list.innerHTML="<div class=\"item\">暂无数据</div>";return;}
     items.forEach(function(it){
       var el=document.createElement("article");
-      el.className="item";
+      el.className="item article-card";
       var title=document.createElement("h2");
       title.className="item-title";
-      title.textContent=(it.title||"无标题");
+      var aid=(it.id!=null?it.id:it.article_id);
+      var titleText=(it.title||it.article_title||"无标题");
+      if(aid!=null){
+        var link=document.createElement("a");
+        link.href="/article-detail.html?id="+aid;
+        link.textContent=titleText;
+        link.style.textDecoration="none";
+        link.style.color="inherit";
+        title.appendChild(link);
+      }else{
+        title.textContent=titleText;
+      }
       var meta=document.createElement("div");
       meta.className="item-meta";
       meta.textContent=(it.username?("作者："+it.username):"");
@@ -51,7 +62,7 @@ document.addEventListener("DOMContentLoaded",function(){
       el.appendChild(title);
       el.appendChild(meta);
       el.appendChild(content);
-      el.addEventListener("click",function(){if(it.id!=null){window.location.href="/article-detail.html?id="+it.id;}});
+      el.addEventListener("click",function(){var id=(it.id!=null?it.id:it.article_id);if(id!=null){window.location.href="/article-detail.html?id="+id;}});
       list.appendChild(el);
     });
   }

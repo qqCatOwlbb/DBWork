@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
         try{
             commentMapper.deleteComment(comment_id);
         }catch (RuntimeException e){
-            throw new InternetServerException("删除评论失败，数据库更新时发生异常");
+            throw new InternetServerException("删除评论失败，数据库更新时发生异常"+e);
         }
     }
 

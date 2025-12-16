@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>个人中心</title>
+  <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">DBWork</div>
+    <nav class="nav">
+      <a href="/index.html">首页</a>
+      <a href="/publish.html">发布文章</a>
+      <a href="/profile.html">个人中心</a>
+      <a href="#" id="link-logout">退出登录</a>
+    </nav>
+  </header>
+  <main class="main">
+    <section class="article">
+      <h1 class="article-title">我的资料</h1>
+      <div class="article-content">
+        <div style="display:flex;gap:16px;align-items:center">
+          <img id="avatar" alt="头像" src="" style="width:80px;height:80px;border-radius:50%;border:1px solid #e5e7eb;object-fit:cover">
+          <div>
+            <div id="username" style="font-weight:600"></div>
+            <div id="bio" style="color:#6b7280;font-size:13px"></div>
+            <div style="margin-top:8px">
+              <input id="avatar-file" type="file" accept="image/*">
+              <button id="avatar-upload" class="btn primary" style="margin-left:8px">上传头像</button>
+            </div>
+            <div id="avatar-error" class="error"></div>
+          </div>
+        </div>
+        <hr style="margin:16px 0;border:none;border-top:1px solid #e5e7eb">
+        <form id="profile-form">
+          <div class="field">
+            <label for="inp-username">用户名</label>
+            <input id="inp-username" type="text" placeholder="新用户名">
+          </div>
+          <div class="field">
+            <label for="inp-password">密码</label>
+            <input id="inp-password" type="password" placeholder="新密码">
+          </div>
+          <div class="field">
+            <label for="inp-bio">简介</label>
+            <input id="inp-bio" type="text" placeholder="个人简介">
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn primary">保存修改</button>
+          </div>
+          <div id="profile-error" class="error"></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="comments">
+      <h2 class="comments-title">我发布的文章</h2>
+      <div id="my-articles" class="list"></div>
+    </section>
+
+    <section class="comments" style="margin-top:16px">
+      <h2 class="comments-title">我点赞的文章</h2>
+      <div id="my-likes" class="list"></div>
+    </section>
+
+    <div id="error" class="error"></div>
+  </main>
+  <script src="/js/profile.js"></script>
+</body>
+</html>

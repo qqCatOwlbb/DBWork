@@ -16,7 +16,7 @@
     </delete>
     <select id="selectParentComment" resultType="com.catowl.dto.CommentGetDTO">
         SELECT
-            c.id AS comment_id,
+            c.id,
             c.article_id,
             c.content,
             c.parent_comment_id,

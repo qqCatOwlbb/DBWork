@@ -5,7 +5,7 @@
 <mapper namespace="com.catowl.mapper.ArticleMapper">
     <select id="articleListByLike" resultType="com.catowl.dto.ArticleDTO">
         SELECT
-            a.id AS article_id,
+            a.id AS id,
             a.title,
             a.content,
             a.view_count,
@@ -22,7 +22,7 @@
     </select>
     <select id="articleListByView" resultType="com.catowl.dto.ArticleDTO">
         SELECT
-            a.id AS article_id,
+            a.id AS id,
             a.title,
             a.content,
             a.view_count,
@@ -52,7 +52,7 @@
     </delete>
     <select id="getArticleById" resultType="map">
         SELECT
-            a.id AS article_id,
+            a.id AS id,
             a.title,
             a.content,
             a.view_count,
