@@ -1,18 +1,17 @@
 package com.catowl.config;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebMvc
-//public class CorsConfig implements WebMvcConfigurer { //控制台提示No mapping for GET时,替换下行
-public class CorsConfig extends WebMvcConfigurationSupport {
+public class CorsConfig implements WebMvcConfigurer {
 
     /*
      * 这里主要为了解决跨域问题,所以重写addCorsMappings方法
      */
     @Override
-    //public void addCorsMappings(CorsRegistry registry) { //控制台提示No mapping for GET时,替换下行
-    protected void addCorsMappings(CorsRegistry registry) {
+    public void addCorsMappings(CorsRegistry registry) {
         //设置允许跨域的路径
         registry.addMapping("/**") //所有的当前站点的请求地址，都支持跨域访问
                 //设置允许跨域请求的域名,二选一allowedOrigins或allowedOrigins

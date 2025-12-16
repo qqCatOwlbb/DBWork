@@ -140,13 +140,9 @@
                 </includes>
                 <filtering>false</filtering>
             </resource>
+
             <resource>
                 <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.setting</include>
-                </includes>
                 <filtering>false</filtering>
             </resource>
         </resources>

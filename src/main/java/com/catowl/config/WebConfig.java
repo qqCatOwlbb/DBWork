@@ -11,10 +11,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")  // 允许所有来源（包括 Postman）
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // 允许的请求方法
-                .allowedHeaders("*")  // 允许的请求头
-                .exposedHeaders("Authorization")  // 允许前端获取的响应头
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization")
                 .allowCredentials(false);
     }
     @Value("${file.upload-dir}")
@@ -24,5 +24,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:" + uploadDir + "/");
+        registry.addResourceHandler("/*.html")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**/*.html")
+                .addResourceLocations("classpath:/static/");
     }
 }
