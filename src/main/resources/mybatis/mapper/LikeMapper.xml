@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.catowl.mapper.LikeMapper">
+        <insert id="addArticleLike" parameterType="Long">
+            INSERT INTO article_likes (article_id,user_id)
+            VALUES (#{article_id},#{user_id});
+        </insert>
+        <delete id="deleteArticleLike" parameterType="Long">
+            DELETE FROM article_likes
+            WHERE article_id = #{article_id} AND user_id = #{user_id};
+        </delete>
+    <update id="updateLikeCount">
+            UPDATE articles
+            SET like_count = #{like_count}
+            WHERE id = #{article_id}
+    </update>
+    <select id="getLikeById" resultType="int">
+        SELECT like_count
+        FROM articles
+        WHERE id = #{article_id}
+    </select>
+</mapper>

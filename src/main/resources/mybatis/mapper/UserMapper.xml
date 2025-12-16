@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.catowl.mapper.UserMapper">
+    <select id="selectUser" resultType="com.catowl.entity.User">
+        SELECT id, username, avatar, bio, created_at, updated_at
+        FROM users
+        WHERE id = #{id};
+    </select>
+    <select id="selectArticleByAuthor" resultType="com.catowl.dto.ArticleDTO">
+        SELECT
+            id AS article_id,
+            title,
+            content,
+            view_count,
+            like_count,
+            created_at,
+            author_id
+        FROM articles
+        WHERE author_id = #{author_id}
+        ORDER BY created_at ASC;
+    </select>
+
+    <select id="selectMyLike" resultType="com.catowl.dto.ArticleDTO">
+        SELECT a.id, a.title, a.content, a.view_count, a.like_count, a.created_at,
+               a.author_id
+        FROM articles a
+                 JOIN article_likes al ON a.id = al.article_id
+        WHERE al.user_id = #{user_id};
+    </select>
+    <select id="findByUsername" resultType="com.catowl.entity.User">
+        SELECT id, username, password, avatar, bio, created_at, updated_at FROM users WHERE username = #{username}
+    </select>
+    <insert id="insertUser" parameterType="com.catowl.entity.User">
+        INSERT INTO users (username,password)
+        VALUES (#{username},#{password});
+    </insert>
+    <update id="updateUser" parameterType="com.catowl.entity.User">
+        UPDATE users
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="bio != null and bio != ''">
+                bio = #{bio},
+            </if>
+                updated_at = NOW(),
+        </trim>
+        WHERE id = #{id}
+    </update>
+    <select id="getinfobyid" resultType="com.catowl.entity.User">
+        SELECT id, username, password, avatar, bio, created_at, updated_at FROM users WHERE id = #{id};
+    </select>
+</mapper>

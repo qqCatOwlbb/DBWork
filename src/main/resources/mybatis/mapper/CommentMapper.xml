@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.catowl.mapper.CommentMapper">
+    <insert id="addComment" parameterType="com.catowl.entity.Comment">
+        INSERT INTO comments (article_id, user_id, content, parent_comment_id)
+        VALUES (#{article_id}, #{user_id}, #{content},
+            <if test="parent_comment_id != null">#{parent_comment_id}</if>
+        <if test="parent_comment_id == null">NULL</if>);
+    </insert>
+    <delete id="deleteComment" parameterType="Long">
+        <!--使用 DELETE FROM comments WHERE id = ?; 删除目标评论（父评论）。子评论会因为外键的 ON DELETE CASCADE 自动删除。-->
+        DELETE FROM comments
+        WHERE id = #{comment_id};
+    </delete>
+    <select id="selectParentComment" resultType="com.catowl.dto.CommentGetDTO">
+        SELECT
+            c.id AS comment_id,
+            c.article_id,
+            c.content,
+            c.parent_comment_id,
+            u.id AS user_id,
+            u.username,
+            u.avatar
+        FROM comments c
+                 JOIN users u ON c.user_id = u.id
+        WHERE c.article_id = #{article_id}
+          AND c.parent_comment_id IS NULL
+        ORDER BY c.created_at ASC;
+    </select>
+    <select id="selectSonComment" resultType="com.catowl.dto.CommentGetDTO">
+        SELECT
+            c.id AS comment_id,
+            c.article_id,
+            c.content,
+            c.parent_comment_id,
+            u.id AS user_id,
+            u.username,
+            u.avatar
+        FROM comments c
+                 JOIN users u ON c.user_id = u.id
+        WHERE c.parent_comment_id = #{parent_comment_id}
+        ORDER BY c.created_at ASC;
+    </select>
+    <select id="selectCommentById" resultType="map">
+        SELECT
+            c.id AS comment_id,
+            c.article_id,
+            c.content,
+            c.parent_comment_id,
+            u.id AS user_id,
+            u.username,
+            u.avatar
+        FROM comments c
+                 JOIN users u ON c.user_id = u.id
+        WHERE c.id = #{comment_id}
+        ORDER BY c.created_at ASC;
+    </select>
+</mapper>

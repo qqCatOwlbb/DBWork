@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.catowl.mapper.ArticleMapper">
+    <select id="articleListByLike" resultType="com.catowl.dto.ArticleDTO">
+        SELECT
+            a.id AS article_id,
+            a.title,
+            a.content,
+            a.view_count,
+            a.like_count,
+            a.status,
+            a.created_at,
+            a.author_id,
+            u.username
+        FROM articles a
+                 JOIN users u ON a.author_id = u.id
+        WHERE status = 1
+        ORDER BY like_count DESC, created_at DESC
+        LIMIT #{limit} OFFSET #{offset};
+    </select>
+    <select id="articleListByView" resultType="com.catowl.dto.ArticleDTO">
+        SELECT
+            a.id AS article_id,
+            a.title,
+            a.content,
+            a.view_count,
+            a.like_count,
+            a.status,
+            a.created_at,
+            a.author_id,
+            u.username
+        FROM articles a
+                 JOIN users u ON a.author_id = u.id
+        WHERE status = 1
+        ORDER BY view_count DESC, created_at DESC
+            LIMIT #{limit} OFFSET #{offset};
+    </select>
+    <insert id="publishArticle" parameterType="com.catowl.entity.Article">
+        INSERT INTO articles (title, content, author_id, view_count, like_count, status)
+        VALUES (#{title}, #{content}, #{author_id}, 0, 0, 1);
+    </insert>
+    <update id="incrementViewCount" parameterType="Long">
+        UPDATE articles
+        SET view_count = view_count + 1
+        WHERE id = #{article_id};
+    </update>
+    <delete id="deleteArticle" parameterType="Long">
+        DELETE FROM articles
+        WHERE id = #{article_id};
+    </delete>
+    <select id="getArticleById" resultType="map">
+        SELECT
+            a.id AS article_id,
+            a.title,
+            a.content,
+            a.view_count,
+            a.like_count,
+            a.status,
+            a.created_at,
+            a.author_id,
+            u.username
+        FROM articles a
+                 JOIN users u ON a.author_id = u.id
+        WHERE a.id = #{article_id}
+        ORDER BY view_count DESC, created_at DESC
+    </select>
+    <select id="list" resultType="com.catowl.entity.Article">
+        SELECT
+            id,
+            view_count
+        FROM articles
+        ORDER BY view_count DESC, created_at DESC
+    </select>
+    <update id="updateNumById">
+        UPDATE articles
+        SET view_count = view_count + #{view_count}
+        WHERE id = #{id}
+    </update>
+</mapper>
